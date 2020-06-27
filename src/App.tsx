@@ -25,7 +25,7 @@ function App() {
       console.log(data);
     };
     loadData();
-    },[]);
+    },[data]);
   //const aa:any =   data; 
   //console.log(data);
     //
