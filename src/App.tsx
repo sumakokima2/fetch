@@ -9,6 +9,7 @@ function App() {
       const response = await fetch("./https://webservice.recruit.co.jp/hotpepper/gourmet/v1/?key=27c093eb8a748dff&large_area=Z011&format=json.json");
       const thisdata = await response.json();
       console.log(thisdata);
+      console.log(data);
       setData(thisdata);
     };
     loadData();
