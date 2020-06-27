@@ -13,7 +13,7 @@ function App() {
       setData(thisdata);
     };
     loadData();
-    },[]);
+    });
   //const aa:any = data; 
   //console.log(data);
     //
