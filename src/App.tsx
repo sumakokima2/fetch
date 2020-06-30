@@ -3,62 +3,63 @@ import './App.css';
 import axios from 'axios';
 //import './recruit.js';
 //import dataa from './recruit.json';
-axios.defaults.baseURL = 'http://localhost:3000';
-axios.defaults.headers.post['Content-Type'] = 'application/json;charset=utf-8';
-axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
 
 function App() {
   
-  const [data, setData] = useState({ hits: [] });
-  const [fdata, setFData] = useState({ hits: [] });
+  const [dataa, setDataa] = useState({ hits: [] });
+  const [dataf, setDataf] = useState({ hits: [] });
 
   useEffect(() => {
     const axiosData = async () => {
       const result = await axios(
-        'https://webservice.recruit.co.jp/hotpepper/gourmet/v1/?key=27c093eb8a748dff&large_area=Z011&format=json',
-        {
-          withCredentials: true
-        });
-       // axios.defaults.withCredentials = true; // global に設定してしまう場合
-      setData(result.data);
-      console.log(result);
+        'https://api.gnavi.co.jp/RestSearchAPI/v3/?keyid=d99a6a5b1fe76bd4b18e5788af561243&name=豚',
+      );
+      setDataa(result.data);
+      console.log(result.data);
     };
     
 
     const fetchData=()=>{
-      fetch('https://webservice.recruit.co.jp/hotpepper/gourmet/v1/?key=27c093eb8a748dff&large_area=Z011&format=json',
-      {method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-          'API-Key': '27c093eb8a748dff'
-        }
-       })
-      .then(function (response) {
-       // handle success
-        console.log(response)
-        setFData(response.json);
-      })
-      .catch(function (error) {
-        // handle error
-        console.log(error);
-      })
-      .finally(function () {
-        // always executed
-      });
+      axios.get('http://hn.algolia.com/api/v1/search?query=redux')
+.then(function (response) {
+    // handle success
+    console.log(response)
+    setDataf(response.data);
+})
+.catch(function (error) {
+    // handle error
+  console.log(error);
+})
+.finally(function () {
+    // always executed
+});
+
     } 
     axiosData();
     fetchData();
     },[]);
-/* {data.hits.map(item => (
-        <li key={item.objectID}>
-          <a href={item.url}>{item.title}</a>
-        </li>
-      ))}*/       
+  //const aa:any =   data; 
+    //
+
 
   return (
     <div className="App">
        <ul>
-     
+      {dataa.hits.map(item => (
+        <li key={item.objectID}>
+          <a href={item.url}>{item.title}</a>
+        </li>
+      ))}
+    </ul>
+    <br />
+    -----------
+    <br />
+    <ul>
+      {dataf.hits.map(item => (
+        <li key={item.objectID}>
+          <a href={item.url}>{item.title}</a>
+        </li>
+      ))}
     </ul>
     </div>
   );
